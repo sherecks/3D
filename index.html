@@ -8,35 +8,216 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@800&family=Bebas+Neue&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"/>
-    <title>BackGround</title>
+    <title>Background</title>
 </head>
 
 <body>
 
-    <div id="info">
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
-        <h1>PEEM GAMES</h1>
+        //Camera
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            25,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.z = 5;
 
-    </div>
+        //sphere 
+        const top = new THREE.TorusGeometry( 0.9, 0.07, 30, 100 );
+        const mat = new THREE.PointsMaterial({
+            size: 0.01,
+        });
+        const sphere = new THREE.Points(top, mat);
+        scene.add(sphere);
 
-    <h4>
-        A day before the stars was born warzone,
-        bringing the glory and fun first, soon after
-        came the rage that destroyed many players
-        around the world.
-        Nowadays we are in crisis with
-        warzone 2.0 but so I continue my search
-        among the best weapons in this game
+        //sphere 01
+        const top1 = new THREE.TorusGeometry( 0.9, 0.02, 30, 200 );
+        const mat1 = new THREE.MeshPhysicalMaterial({
+            color: 0x575757,
+            emissive: 0x0032FF,
+            flatShading: true,
+            wireframe: true
+        });
+        mat1.reflectivity = 0
+        mat1.roughness = 0
+        mat1.metalness = 0.4
+        mat1.clearcoat = 0
+        const sphere01 = new THREE.Mesh(top1, mat1);
+        scene.add(sphere01);
 
-    </h4>
+        //sphere 1
+        const tup = new THREE.TorusGeometry( 0.6, 0.05, 20, 100 );
+        const mit = new THREE.PointsMaterial({
+            size: 0.01,
+        });
+        const sphere1 = new THREE.Points(tup, mit);
+        scene.add(sphere1);
 
-    <h2>Design by <a href="https://www.joaopedropn.com.br/" target="_blank">Joao Pedro</a></h2>
+        //sphere 2
+        const txp = new THREE.TorusGeometry( 0.32, 0.035, 20, 200 );
+        const mzt = new THREE.MeshPhysicalMaterial({
+            color: 0x8c9da6,
+            emissive: 0x425557,
+            
+        });
+        mzt.reflectivity = 1
+        mzt.roughness = 0
+        mzt.metalness = 1
+        mzt.clearcoat = 0
+        const sphere2 = new THREE.Mesh(txp, mzt);
+        scene.add(sphere2);
+
+        //sphere 3
+        const tpp = new THREE.SphereGeometry( 0.15, 36, 22 );
+        const mtt = new THREE.PointsMaterial({
+            size: 0.01,
+        });
+        const sphere3 = new THREE.Points(tpp, mtt);
+        scene.add(sphere3);
+
+        //sphere 4
+        const tppp = new THREE.TorusGeometry( 1.2, 0.1, 15, 50 );
+        const mttt = new THREE.MeshPhysicalMaterial({
+            color: 0x575757,
+            emissive: 0x000000,
+            wireframe: true
+        })
+        mttt.reflectivity = 0
+        mttt.roughness = 0
+        mttt.metalness = 0.4
+        mttt.clearcoat = 0
+        const sphere4 = new THREE.Mesh(tppp, mttt);
+        scene.add(sphere4);
+
+        //sphere 5
+        const tppp1 = new THREE.TorusGeometry( 1.2, 0.04, 15, 75 );
+        const mttt1 = new THREE.PointsMaterial({
+            color: 0xFFFFFF,
+            size: 0.01
+        })
+        const sphere5 = new THREE.Points(tppp1, mttt1);
+        scene.add(sphere5);
+
+        //sphere 6
+        const tppp2 = new THREE.TorusGeometry( 1.2, 0.02, 35, 50 );
+        const mttt2 = new THREE.MeshPhysicalMaterial({
+            color: 0x575757,
+            emissive: 0x000000,
+            flatShading: true,
+            wireframe: true
+        })
+        mttt2.reflectivity = 0
+        mttt2.roughness = 0
+        mttt2.metalness = 0.4
+        mttt2.clearcoat = 0
+        const sphere6 = new THREE.Mesh(tppp2, mttt2);
+        scene.add(sphere6);
+
+        //Circle
+        const tip = new THREE.SphereGeometry( 0.1, 8, 8 );
+        const mut = new THREE.MeshPhysicalMaterial( {
+            color: 0x0032FF,
+            emissive: 0x000000,
+            flatShading: true,
+            wireframe: true
+        } );
+        mut.reflectivity = 0
+        mut.roughness = 0
+        mut.metalness = 0.4
+        mut.clearcoat = 0
+        const circle = new THREE.Mesh(tip, mut);
+        scene.add(circle);
+
+        //Circle1
+        const tip1 = new THREE.IcosahedronGeometry( 0.06, 0 );
+        const mut1 = new THREE.MeshPhysicalMaterial( {
+            color: 0xFFFFFF,
+            emissive: 0x0032FF,
+            flatShading: true,
+        } );
+        mut1.reflectivity = 0
+        mut1.roughness = 0
+        mut1.metalness = 0.4
+        mut1.clearcoat = 0
+        const circle1 = new THREE.Mesh(tip1, mut1);
+        scene.add(circle1);
+
+        const grid = new THREE.Points( new THREE.PlaneGeometry( 15000, 15000, 64, 64 ),
+        new THREE.PointsMaterial( { color: 0xff0000, size: 0.05 } ) );
+        grid.position.y = - 100;
+        grid.rotation.x = - Math.PI / 2;
+        scene.add( grid );
+
+        //Light
+        const directionalLight = new THREE.DirectionalLight( 0xFFFFFF, 2 );
+        scene.add( directionalLight );
+
+        const light = new THREE.PointLight( 0xB3BAFF, 1.5, 50 );
+        light.position.set( 10, 0, 20 );
+        scene.add( light );
+
+        const light1 = new THREE.PointLight( 0xFFFFFF, 0.75, 50 );
+        light1.position.set( -20, 0, 20 );
+        scene.add( light1 );
+
+
+        //Renderer
+        const renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+        //Animate
+        function animate() {
+
+
+            circle.rotation.z -= 0.02;
+            circle.rotation.x += 0.02;
+
+            circle1.rotation.z -= 0.02;
+            circle1.rotation.x += 0.02;
+
+            sphere.rotation.z += 0.002;
+            sphere.rotation.x += 0.02;
+            sphere.rotation.y -= 0.015;
+
+            sphere01.rotation.z += 0.002;
+            sphere01.rotation.x += 0.02;
+            sphere01.rotation.y -= 0.015;
+
+            sphere1.rotation.z += 0.003;
+            sphere1.rotation.y -= 0.0185;
+            sphere1.rotation.x += 0.018;
+
+            sphere2.rotation.y -= 0.017;
+            sphere2.rotation.x -= 0.02;
+            sphere2.rotation.z -= 0.002;
+
+            sphere3.rotation.y -= 0.02;
+            sphere3.rotation.z -= 0.002;
+
+            sphere4.rotation.x = 2;
+            sphere4.rotation.z -= 0.002;
+
+            sphere5.rotation.x = 2;
+            sphere5.rotation.z -= 0.003;
+
+            sphere6.rotation.x = 2;
+            sphere6.rotation.z -= 0.002;
+
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+
+        }
+
+        animate();
+    </script>
 
 
 </body>
 
-<div class="cont"></div>
-
-<script src="script.js" type="module"></script>
 
 </html>
