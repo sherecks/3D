@@ -13,6 +13,11 @@
 
 <body>
 
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@500&display=swap');
+    </style>
+
     <script type="module">
         import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
@@ -27,57 +32,43 @@
         camera.position.z = 5;
 
         //sphere 
-        const top = new THREE.TorusGeometry( 0.9, 0.07, 30, 100 );
+        const top = new THREE.SphereGeometry( 0.3, 25, 15 );
         const mat = new THREE.PointsMaterial({
-            size: 0.01,
+            size: 0.015,
+            color: 0xF5FFFA
         });
         const sphere = new THREE.Points(top, mat);
         scene.add(sphere);
 
         //sphere 01
-        const top1 = new THREE.TorusGeometry( 0.9, 0.02, 30, 200 );
+        const top1 = new THREE.TorusGeometry( 0.42, 0.03, 50, 200 );
         const mat1 = new THREE.MeshPhysicalMaterial({
             color: 0x575757,
             emissive: 0x0032FF,
             flatShading: true,
             wireframe: true
         });
-        mat1.reflectivity = 0
+        mat1.reflectivity = 2
         mat1.roughness = 0
-        mat1.metalness = 0.4
-        mat1.clearcoat = 0
+        mat1.metalness = 1
+        mat1.clearcoat = 0.2
         const sphere01 = new THREE.Mesh(top1, mat1);
         scene.add(sphere01);
 
-        //sphere 1
-        const tup = new THREE.TorusGeometry( 0.6, 0.05, 20, 100 );
-        const mit = new THREE.PointsMaterial({
-            size: 0.01,
-        });
-        const sphere1 = new THREE.Points(tup, mit);
-        scene.add(sphere1);
-
         //sphere 2
-        const txp = new THREE.TorusGeometry( 0.32, 0.035, 20, 200 );
+        const txp = new THREE.TorusGeometry( 0.23, 0.035, 20, 200 );
         const mzt = new THREE.MeshPhysicalMaterial({
-            color: 0x8c9da6,
-            emissive: 0x425557,
+            color: 0xDCDCDC,
+            emissive: 0x808080,
             
         });
-        mzt.reflectivity = 1
-        mzt.roughness = 0
-        mzt.metalness = 1
-        mzt.clearcoat = 0
+        mzt.reflectivity = 0.8
+        mzt.roughness = 0.3
+        mzt.metalness = 2
+        mzt.clearcoat = 0.5
         const sphere2 = new THREE.Mesh(txp, mzt);
         scene.add(sphere2);
 
-        //sphere 3
-        const tpp = new THREE.SphereGeometry( 0.15, 36, 22 );
-        const mtt = new THREE.PointsMaterial({
-            size: 0.01,
-        });
-        const sphere3 = new THREE.Points(tpp, mtt);
-        scene.add(sphere3);
 
         //sphere 4
         const tppp = new THREE.TorusGeometry( 1.2, 0.1, 15, 50 );
@@ -94,26 +85,24 @@
         scene.add(sphere4);
 
         //sphere 5
-        const tppp1 = new THREE.TorusGeometry( 1.2, 0.04, 15, 75 );
+        const tppp1 = new THREE.TorusGeometry( 1.2, 0.04, 15, 25 );
         const mttt1 = new THREE.PointsMaterial({
-            color: 0xFFFFFF,
+            color: 0xA9A9A9,
             size: 0.01
         })
         const sphere5 = new THREE.Points(tppp1, mttt1);
         scene.add(sphere5);
 
         //sphere 6
-        const tppp2 = new THREE.TorusGeometry( 1.2, 0.02, 35, 50 );
+        const tppp2 = new THREE.TorusGeometry( 1.2, 0.02, 15, 200 );
         const mttt2 = new THREE.MeshPhysicalMaterial({
-            color: 0x575757,
-            emissive: 0x000000,
-            flatShading: true,
-            wireframe: true
+            color: 0xDC143C,
+            emissive: 0x0032FF,
         })
-        mttt2.reflectivity = 0
-        mttt2.roughness = 0
-        mttt2.metalness = 0.4
-        mttt2.clearcoat = 0
+        mttt2.reflectivity = 0.4
+        mttt2.roughness = 1
+        mttt2.metalness = 0.6
+        mttt2.clearcoat = 1
         const sphere6 = new THREE.Mesh(tppp2, mttt2);
         scene.add(sphere6);
 
@@ -122,12 +111,11 @@
         const mut = new THREE.MeshPhysicalMaterial( {
             color: 0x0032FF,
             emissive: 0x000000,
-            flatShading: true,
             wireframe: true
         } );
-        mut.reflectivity = 0
+        mut.reflectivity = 1
         mut.roughness = 0
-        mut.metalness = 0.4
+        mut.metalness = 0.2
         mut.clearcoat = 0
         const circle = new THREE.Mesh(tip, mut);
         scene.add(circle);
@@ -135,33 +123,103 @@
         //Circle1
         const tip1 = new THREE.IcosahedronGeometry( 0.06, 0 );
         const mut1 = new THREE.MeshPhysicalMaterial( {
-            color: 0xFFFFFF,
+            color: 0xDC143C,
             emissive: 0x0032FF,
             flatShading: true,
+            
         } );
-        mut1.reflectivity = 0
+        mut1.reflectivity = 2
         mut1.roughness = 0
         mut1.metalness = 0.4
         mut1.clearcoat = 0
         const circle1 = new THREE.Mesh(tip1, mut1);
         scene.add(circle1);
 
-        const grid = new THREE.Points( new THREE.PlaneGeometry( 15000, 15000, 64, 64 ),
-        new THREE.PointsMaterial( { color: 0xff0000, size: 0.05 } ) );
-        grid.position.y = - 100;
-        grid.rotation.x = - Math.PI / 2;
-        scene.add( grid );
+        //Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const counts = 2000;
+
+        const positions = new Float32Array(counts * 5);
+        for ( let i = 0; i < counts * 50; i++){
+            positions[i + 1] = (Math.random() -0.5) * 35;
+        }
+
+        particlesGeometry.setAttribute(
+            'position', 
+            new THREE.BufferAttribute(positions, 3)
+        );
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0xF5F5DC,
+            emissive: 0xDC143C,
+        });
+        particlesMaterial.size = 0.002;
+        particlesMaterial.reflectivity = 2,
+        particlesMaterial.sizeAttenuation = true;
+
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        //Particles1
+        const particlesGeometry1 = new THREE.BufferGeometry();
+        const counts1 = 2000;
+
+        const positions1 = new Float32Array(counts1 * 5);
+        for ( let i = 0; i < counts1 * 50; i++){
+            positions1[i + 1] = (Math.random() -0.5) * 35;
+        }
+
+        particlesGeometry1.setAttribute(
+            'position', 
+            new THREE.BufferAttribute(positions1, 3)
+        );
+
+        const particlesMaterial1 = new THREE.PointsMaterial({
+            color: 0xFF4500,
+            emissive: 0xDC143C,
+        });
+        particlesMaterial1.size = 0.002;
+        particlesMaterial1.reflectivity = 2,
+        particlesMaterial1.sizeAttenuation = true;
+
+        const particles1 = new THREE.Points(particlesGeometry1, particlesMaterial1);
+        scene.add(particles1);
+
+        //Particles2
+        const particlesGeometry2 = new THREE.BufferGeometry();
+        const counts2 = 500;
+ 
+        const positions2 = new Float32Array(counts2 * 5);
+        for ( let i = 0; i < counts2 * 50; i++){
+            positions2[i + 1] = (Math.random() -0.5) * 35;
+        }
+ 
+        particlesGeometry2.setAttribute(
+            'position', 
+            new THREE.BufferAttribute(positions2, 3)
+        );
+ 
+        const particlesMaterial2 = new THREE.PointsMaterial({
+            color: 0x9400D3,
+            emissive: 0xDC143C,
+        });
+        particlesMaterial2.size = 0.002;
+        particlesMaterial2.reflectivity = 2,
+        particlesMaterial2.sizeAttenuation = true;
+ 
+        const particles2 = new THREE.Points(particlesGeometry2, particlesMaterial2);
+        scene.add(particles2);
 
         //Light
-        const directionalLight = new THREE.DirectionalLight( 0xFFFFFF, 2 );
+        const directionalLight = new THREE.DirectionalLight( 0xFFFFFF, 1.68 );
         scene.add( directionalLight );
 
-        const light = new THREE.PointLight( 0xB3BAFF, 1.5, 50 );
-        light.position.set( 10, 0, 20 );
+        const light = new THREE.PointLight( 0xF, 1.5, 50 );
+        light.position.set( 2.5, 5, 20 );
         scene.add( light );
 
-        const light1 = new THREE.PointLight( 0xFFFFFF, 0.75, 50 );
-        light1.position.set( -20, 0, 20 );
+        const light1 = new THREE.PointLight( 0xFFFFFF, 0.85, 50 );
+        light1.position.set( -20, -15, 20 );
         scene.add( light1 );
 
 
@@ -173,6 +231,14 @@
         //Animate
         function animate() {
 
+            particles.rotation.y += 0.0009;
+            particles.rotation.x += 0.0009;
+
+            particles1.rotation.y += 0.0009;
+            particles1.rotation.x += 0.0009;
+
+            particles2.rotation.y += 0.0009;
+            particles2.rotation.x += 0.0009;
 
             circle.rotation.z -= 0.02;
             circle.rotation.x += 0.02;
@@ -180,24 +246,18 @@
             circle1.rotation.z -= 0.02;
             circle1.rotation.x += 0.02;
 
-            sphere.rotation.z += 0.002;
-            sphere.rotation.x += 0.02;
-            sphere.rotation.y -= 0.015;
+            sphere.rotation.z += 0.01;
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y -= 0.002;
 
             sphere01.rotation.z += 0.002;
             sphere01.rotation.x += 0.02;
             sphere01.rotation.y -= 0.015;
 
-            sphere1.rotation.z += 0.003;
-            sphere1.rotation.y -= 0.0185;
-            sphere1.rotation.x += 0.018;
 
             sphere2.rotation.y -= 0.017;
             sphere2.rotation.x -= 0.02;
             sphere2.rotation.z -= 0.002;
-
-            sphere3.rotation.y -= 0.02;
-            sphere3.rotation.z -= 0.002;
 
             sphere4.rotation.x = 2;
             sphere4.rotation.z -= 0.002;
@@ -215,6 +275,8 @@
 
         animate();
     </script>
+
+    <div id="info">Design by João Pedro</div>
 
 
 </body>
